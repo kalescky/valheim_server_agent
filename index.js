@@ -1,14 +1,13 @@
-import { queryGameServerInfo } from 'steam-server-query';
-var AWS = require('aws-sdk');
+const steamServerQuery = require('steam-server-query');
+const AWS = require('aws-sdk');
 
 AWS.config.update({region: 'REGION'});
 
-queryGameServerInfo('localhost:2457').then(infoResponse => {
+steamServerQuery.queryGameServerInfo('localhost:2457').then(infoResponse => {
   console.log(infoResponse);
 }).catch((err) => {
   console.error(err);
 });
-
 
 
 // Create CloudWatch service object
@@ -38,4 +37,4 @@ cw.putMetricData(params, function(err, data) {
   } else {
     console.log("Success", JSON.stringify(data));
   }
-});
+}); 
