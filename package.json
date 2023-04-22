@@ -1,0 +1,16 @@
+{
+  "name": "valheim_server_agent",
+  "version": "1.0.0",
+  "description": "valheim agent to run on dedicated server. intended to pushlish server metrics to cloudwatch for automation.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "steam-server-query": "^1.1.3"
+  }
+}
