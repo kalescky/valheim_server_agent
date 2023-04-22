@@ -2,6 +2,7 @@ const steamServerQuery = require('steam-server-query');
 const AWS = require('aws-sdk');
 
 AWS.config.update({region: 'us-west-2'});
+var cw = new AWS.CloudWatch({apiVersion: '2010-08-01'});
 
 function serverQuery() {
   steamServerQuery.queryGameServerInfo('localhost:2457').then(infoResponse => {
