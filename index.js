@@ -10,10 +10,10 @@ function serverQuery() {
     var params = {
       MetricData: [
       {
-          MetricName: 'SERVER',
+          MetricName: 'Connection Count',
           Dimensions: [
           {
-              Name: "WORLD",
+              Name: "World",
               Value: infoResponse.map
           },
           ],
@@ -21,7 +21,7 @@ function serverQuery() {
           Value: infoResponse.players
       },
       ],
-      Namespace: 'VALHEIM'
+      Namespace: 'Valheim'
   };
 
   cw.putMetricData(params, function(err, data) {
