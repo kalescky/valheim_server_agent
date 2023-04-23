@@ -21,7 +21,7 @@ const options = program.opts();
 
 if (options.run) {
   const command = './'+process.env.VALHEIM_EXECUTABLE;
-  const args = [ '-name '+options.serverName, '-port '+options.serverPort , '-world '+options.serverWorld, '-password '+options.serverPassword];
+  const args = [ '-name "'+options.serverName+'"', '-port '+options.serverPort , '-world "'+options.serverWorld+'"', '-password "'+options.serverPassword+'"'];
   console.log(command, args);
   spawn(command, args)
 };
