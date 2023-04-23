@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1363.0",
+    "commander": "^10.0.1",
+    "dotenv": "^16.0.3",
     "steam-server-query": "^1.1.3"
   }
 }
