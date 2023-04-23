@@ -23,43 +23,16 @@ if (options.run) {
   const valheim_executable = process.env.VALHEIM_EXECUTABLE;
   const args = [ '-name "'+options.serverName+'"', '-port '+options.serverPort , '-world "'+options.serverWorld+'"', '-password "'+options.serverPassword+'"'];
   console.log(valheim_executable, args);
-  const command = spawn(valheim_executable, args)
-
-  command.stdout.on("data", data => {
-    console.log(`stdout: ${data}`);
-  });
-
-  command.stderr.on("data", data => {
-      console.log(`stderr: ${data}`);
-  });
-
-  command.on('error', (error) => {
-      console.log(`error: ${error.message}`);
-  });
-
-  command.on("close", code => {
-      console.log(`child process exited with code ${code}`);
-  }); 
+  const command = spawn(valheim_executable, {detached: true, stdio: 'ignore'});
+  command.unref();
 };  
 
 if (options.startLogging) {
   AWS.config.update({region: 'us-west-2'});
   var cw = new AWS.CloudWatch({apiVersion: '2010-08-01'});
-  if (options.host) { 
-    const host = options.host; 
-  } else {
-    const host = 'locolhost';
-  }
-  const port = '2457';
-  if (options.interval) { 
-    const interval = Number(options.interval); 
-  } else {
-    const interval = 10000;
-  }
 
   setInterval(() => {
-    console.log(host,':',port);
-    steamServerQuery.queryGameServerInfo(host+":"+port).then(infoResponse => {
+    steamServerQuery.queryGameServerInfo('localhost:2457').then(infoResponse => {
       console.log(infoResponse);
       var params = {
         MetricData: [
@@ -88,7 +61,7 @@ if (options.startLogging) {
     }).catch((err) => {
       console.error(err);
     });
-  }, interval)
+  }, 10000);
   
 }
 
