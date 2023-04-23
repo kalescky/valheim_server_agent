@@ -20,11 +20,27 @@ program.parse(process.argv);
 const options = program.opts();
 
 if (options.run) {
-  const command = process.env.VALHEIM_EXECUTABLE;
+  const valheim_executable = process.env.VALHEIM_EXECUTABLE;
   const args = [ '-name "'+options.serverName+'"', '-port '+options.serverPort , '-world "'+options.serverWorld+'"', '-password "'+options.serverPassword+'"'];
-  console.log(command, args);
-  spawn(command, args)
-};
+  console.log(valheim_executable, args);
+  const command = spawn(valheim_executable, args)
+
+  command.stdout.on("data", data => {
+    console.log(`stdout: ${data}`);
+  });
+
+  command.stderr.on("data", data => {
+      console.log(`stderr: ${data}`);
+  });
+
+  command.on('error', (error) => {
+      console.log(`error: ${error.message}`);
+  });
+
+  command.on("close", code => {
+      console.log(`child process exited with code ${code}`);
+  }); 
+};  
 
 if (options.startLogging) {
   AWS.config.update({region: 'us-west-2'});
