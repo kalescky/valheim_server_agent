@@ -10,17 +10,17 @@ program
   .option('-l, --start-logging', 'start cloudwatch metric collection')
   .option('-t, --test', 'test command')
   .option('-h, --host <ip-address>', 'ip for host if not running local. default is localhost')
-  .option('--interval', 'logging interval')
-  .option('--server-name', 'valheim server name')
-  .option('--server-port', 'valheim server port')
-  .option('--server-world', 'valheim server world')
-  .option('--server-password','valheim server password')
+  .option('--interval <ms>', 'logging interval')
+  .option('--server-name <name>', 'valheim server name')
+  .option('--server-port <port>', 'valheim server port')
+  .option('--server-world <world>', 'valheim server world')
+  .option('--server-password <password>','valheim server password')
 
 program.parse(process.argv);
 const options = program.opts();
 
 if (options.run) {
-  const command = './'+process.env.VALHEIM_EXECUTABLE;
+  const command = process.env.VALHEIM_EXECUTABLE;
   const args = [ '-name "'+options.serverName+'"', '-port '+options.serverPort , '-world "'+options.serverWorld+'"', '-password "'+options.serverPassword+'"'];
   console.log(command, args);
   spawn(command, args)
